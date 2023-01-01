@@ -1,10 +1,10 @@
 const express = require("express");
 const axios = require("axios");
-const path = require('path');
+const path = require("path");
 
 const app = express();
 
-const apiKey = "";
+const apiKey = "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";
 const imageGenerationUrl = "https://api.openai.com/v1/images/generations";
 
 app.use(express.static(path.join(__dirname, "public")));

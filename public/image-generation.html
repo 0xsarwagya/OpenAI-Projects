@@ -70,7 +70,7 @@
           "https://codes4education.com/wp-content/uploads/2020/09/Loading-Text-Animation-Effects-Html-CSS-Tutorial-CodeRush-min.jpg";
         event.preventDefault();
         const prompt = form.elements.prompt.value;
-        result.style.display = "none";
+        result.style.display = "block";
         try {
           loading.style.display = "block";
           const response = await fetch(`/image?prompt=${prompt}`);
