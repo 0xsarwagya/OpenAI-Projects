@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Image Generation</title>
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+
+      label {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"] {
+        width: 500px;
+        height: 40px;
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      button[type="submit"] {
+        width: 150px;
+        height: 40px;
+        background-color: lightblue;
+        color: white;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+
+      #result {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      #generated-image {
+        width: 1024px;
+        height: 1024px;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Generation</h1>
+    <form>
+      <div>
+        <label for="prompt">Prompt:</label>
+        <input type="text" id="prompt" name="prompt" required />
+      </div>
+      <button type="submit">Generate Image</button>
+    </form>
+    <div id="result">
+      <img id="generated-image" src="" alt="Generated Image" />
+      <p id="loading">Loading...</p>
+    </div>
+    <script>
+      const form = document.querySelector("form");
+      const result = document.querySelector("#result");
+      const image = document.querySelector("#generated-image");
+      const loading = document.querySelector("#loading");
+
+      form.addEventListener("submit", async (event) => {
+        image.src =
+          "https://codes4education.com/wp-content/uploads/2020/09/Loading-Text-Animation-Effects-Html-CSS-Tutorial-CodeRush-min.jpg";
+        event.preventDefault();
+        const prompt = form.elements.prompt.value;
+        result.style.display = "none";
+        try {
+          loading.style.display = "block";
+          const response = await fetch(`/image?prompt=${prompt}`);
+          if (!response.ok) {
+            throw new Error(await response.text());
+          }
+          const url = await response.text();
+          image.src = url;
+          result.style.display = "flex";
+          loading.style.display = "none";
+        } catch (error) {
+          console.error(error);
+          alert("Failed to generate image");
+        }
+      });
+    </script>
+  </body>
+</html>
